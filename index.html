@@ -20,5 +20,21 @@
   <!-- End Google Tag Manager (noscript) -->
   <h1>Üdv a tanuló oldalamon!</h1>
   <p>Itt gyakorlom a webfejlesztést és a Google Analytics használatát.</p>
+<form action="https://formspree.io/f/moveyyjp" method="POST">
+  <label for="name">Név:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="message">Üzenet:</label><br>
+  <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+  <!-- Rejtett mező: ha sikeres a küldés, akkor ide irányít -->
+  <input type="hidden" name="_redirect" value="https://kristi-ke.github.io/analytics-tanulas/koszonom.html">
+
+  <button type="submit">Küldés</button>
+</form>
+
 </body>
 </html>

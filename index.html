@@ -28,6 +28,47 @@ Nullam lobortis dolor sit amet lectus auctor, et tincidunt ligula luctus. Aliqua
 Curabitur sit amet ante nunc. Integer fringilla lectus magna, a fermentum ex gravida id. Nunc placerat elit id sollicitudin iaculis.
 
 </p>
+<nav>
+    <a href="#" onclick="showSection('bemutatkozas')">Bemutatkozás</a>
+    <a href="#" onclick="showSection('kapcsolat')">Kapcsolat</a>
+    <a href="#" onclick="showSection('blog')">Blog</a>
+  </nav>
+
+  <input type="search" id="kereso" placeholder="Keresés..." onkeyup="keres()">
+
+  <div id="bemutatkozas" class="section visible">
+    <h2>Bemutatkozás</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut quam at nisl consequat bibendum.</p>
+  </div>
+
+  <div id="kapcsolat" class="section">
+    <h2>Kapcsolat</h2>
+    <p>Email: valaki@example.com<br>Telefonszám: +36 30 123 4567</p>
+  </div>
+
+  <div id="blog" class="section">
+    <h2>Blog</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in convallis purus. Aliquam erat volutpat.</p>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
+
+    function keres() {
+      const szoveg = document.getElementById('kereso').value.toLowerCase();
+      document.querySelectorAll('.section').forEach(section => {
+        const tartalom = section.innerText.toLowerCase();
+        if (tartalom.includes(szoveg)) {
+          section.classList.add('visible');
+        } else {
+          section.classList.remove('visible');
+        }
+      });
+    }
+  </script>
    <main class="container-lg pt-4">
         <h1>Hello Analytics!</h1>
         <a class="twitter-share-button" target="_blank"

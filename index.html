@@ -30,7 +30,7 @@
     <a href="#blog" onclick="showSection('blog')">Blog</a>
   </nav>
   <input type="text" id="kereso" placeholder="Keresés...">
-  <button onlclick="keres()">Keresés</button>
+  <button onclick="keres()">Keresés</button>
   <p>Itt gyakorlom a webfejlesztést és a Google Analytics használatát.</p>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat magna et augue vehicula, ut laoreet dolor
@@ -121,12 +121,19 @@
       for (const section of sections) {
         const tartalom = section.innerText.toLowerCase();
         if (tartalom.includes(szoveg)) {
+          // először megjelenítjük
+          section.classList.add('visible');
+  
+          // görgetés az első találathoz
           section.scrollIntoView({ behavior: 'smooth' });
-          break; // csak az első találathoz ugrik
+        } else {
+          // többit elrejtjük
+          section.classList.remove('visible');
         }
       }
     }
   </script>
+  
   
   <main class="container-lg pt-4">
     <h1>Hello Analytics!</h1>

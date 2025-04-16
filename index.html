@@ -28,6 +28,7 @@
     <a href="#bemutatkozas" onclick="showSection('bemutatkozas')">Bemutatkozás</a>
     <a href="#kapcsolat" onclick="showSection('kapcsolat')">Kapcsolat</a>
     <a href="#blog" onclick="showSection('blog')">Blog</a>
+    <a href="#" onclick="showSection('hirlevel')">Hírlevél</a>
   </nav>
   <input type="text" id="kereso" placeholder="Keresés...">
   <button onclick="keres()">Keresés</button>
@@ -112,7 +113,25 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut quam at nisl consequat bibendum.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut quam at nisl consequat bibendum.</p>
   </div>
+  <div id="hirlevel" class="section">
+    <h2>Iratkozz fel a hírlevelünkre!</h2>
+    <form action="https://formspree.io/f/moveyyjp" method="POST">
+      <label for="name">Név:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
 
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <input type="hidden" name="_redirect" value="https://kristi-ke.github.io/analytics-tanulas/feliratkozva.html">
+
+      <button type="submit">Feliratkozás</button>
+    </form>
+  </div>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
   <script>
     function keres() {
       const szoveg = document.getElementById('kereso').value.toLowerCase();

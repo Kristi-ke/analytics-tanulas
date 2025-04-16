@@ -132,35 +132,35 @@
       document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
       document.getElementById(id).classList.add('visible');
     }
-  <script>
-    function keres() {
+    <script>
+      function keres() {
       const szoveg = document.getElementById('kereso').value.toLowerCase();
       const sections = document.querySelectorAll('.section');
-  
+
       for (const section of sections) {
         const tartalom = section.innerText.toLowerCase();
-        if (tartalom.includes(szoveg)) {
-          // először megjelenítjük
-          section.classList.add('visible');
-  
-          // görgetés az első találathoz
-          section.scrollIntoView({ behavior: 'smooth' });
+      if (tartalom.includes(szoveg)) {
+        // először megjelenítjük
+        section.classList.add('visible');
+
+      // görgetés az első találathoz
+      section.scrollIntoView({behavior: 'smooth' });
         } else {
-          // többit elrejtjük
-          section.classList.remove('visible');
+        // többit elrejtjük
+        section.classList.remove('visible');
         }
       }
     }
   </script>
-  
-  
+
+
   <main class="container-lg pt-4">
     <h1>Hello Analytics!</h1>
     <a class="twitter-share-button" target="_blank"
       href="https://twitter.com/intent/tweet?text=%23HelloAnalytics%20%23GA4TutorialSeries">
       <i></i><span>Tweet</span></a>
   </main>
-  <form action="https://formspree.io/f/moveyyjp" method="POST">
+  <form action="https://formspree.io/f/moveyyjp" method="POST" id="kapcsolatfelvetel">
     <label for="name">Név:</label><br>
     <input type="text" id="name" name="name" required><br><br>
 
@@ -175,6 +175,31 @@
 
     <button type="submit">Küldés</button>
   </form>
+  <footer>
+    <h3>Iratkozz fel a hírlevelünkre!</h3>
+    <form action="https://formspree.io/f/moveyyjp" method="POST" id="hirlevel-feliratkozas-footer">
+      <label for="name-footer">Név:</label><br>
+      <input type="text" id="name-footer" name="name" required><br><br>
+
+      <label for="email-footer">Email:</label><br>
+      <input type="email" id="email-footer" name="email" required><br><br>
+
+      <input type="hidden" name="_redirect" value="https://kristi-ke.github.io/analytics-tanulas/feliratkozva.html">
+
+      <button type="submit">Feliratkozás</button>
+    </form>
+
+    <nav>
+      <h4>Oldalak</h4>
+      <ul style="list-style: none; padding-left: 0;">
+        <li><a href="#" onclick="showSection('bemutatkozas')">Bemutatkozás</a></li>
+        <li><a href="#" onclick="showSection('kapcsolat')">Kapcsolat</a></li>
+        <li><a href="#" onclick="showSection('blog')">Blog</a></li>
+        <li><a href="#" onclick="showSection('hirlevel')">Hírlevél</a></li>
+      </ul>
+    </nav>
+  </footer>
+
 
 </body>
 

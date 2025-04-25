@@ -15,14 +15,26 @@
   <title>Köszönjük!</title>
 </head>
 <body>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWNQHQPP" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  <div id="consent-banner-placeholder"></div>
+
+<script>
+  fetch('consent.html')
+    .then(response => response.text())
+    .then(html => document.getElementById('consent-banner-placeholder').innerHTML = html);
+</script>
+
   <div id="header"></div>
 
   <h1>Köszönjük az üzeneted!</h1>
   <p>Hamarosan válaszolunk.</p>
   <a href="index.html">Vissza a főoldalra</a>
+  <div id="footer"></div>
+  <script src="js/layout-loader.js"></script>
+
 </body>
 </html>

@@ -1,63 +1,72 @@
-<div id="cookie-consent-banner" class="cookie-consent-banner">
-    <h3>Cookie settings</h3>
-    <p>We use cookies to provide you with the best possible experience. They also allow us to analyze user behavior in order to constantly improve the website for you.</p>
-    <button id="btn-accept-all" class="cookie-consent-button btn-success">Accept All</button>
-    <button id="btn-accept-some" class="cookie-consent-button btn-outline">Accept Selection</button>
-    <button id="btn-reject-all" class="cookie-consent-button btn-grayscale">Reject All</button>
-    <div class="cookie-consent-options">
-        <label><input id="consent-necessary" type="checkbox" value="Necessary" checked disabled>Necessary</label>
-        <label><input id="consent-analytics" type="checkbox" value="Analytics" checked>Analytics</label>
-        <label><input id="consent-preferences" type="checkbox" value="Preferences" checked>Preferences</label>
-        <label><input id="consent-marketing" type="checkbox" value="Marketing">Marketing</label>
+<div id="cookie-consent-banner" class="cookie-consent-banner" style="background:#f9f9f9; padding:20px; border-bottom:1px solid #ccc; text-align:center;">
+    <h3>Cookie beállítások</h3>
+    <p>Ez az oldal sütiket használ a legjobb élmény érdekében. Kérlek, válaszd ki, hogy mely sütiket engedélyezed.</p>
+    <div style="margin: 10px 0;">
+      <button id="btn-accept-all" class="cookie-consent-button btn-success">Összes elfogadása</button>
+      <button id="btn-accept-some" class="cookie-consent-button btn-outline">Kiválasztottak elfogadása</button>
+      <button id="btn-reject-all" class="cookie-consent-button btn-grayscale">Összes elutasítása</button>
     </div>
-</div>
-
-<script>
+    <div class="cookie-consent-options" style="margin-top:10px;">
+      <label><input id="consent-necessary" type="checkbox" checked disabled> Szükséges</label><br>
+      <label><input id="consent-analytics" type="checkbox" checked> Analitika</label><br>
+      <label><input id="consent-preferences" type="checkbox" checked> Preferenciák</label><br>
+      <label><input id="consent-marketing" type="checkbox"> Marketing</label>
+    </div>
+  </div>
+  
+  <script>
     function hideBanner() {
-        document.getElementById('cookie-consent-banner').style.display = 'none';
+      document.getElementById('cookie-consent-banner').style.display = 'none';
     }
-
-    if (localStorage.getItem('consentMode') === null) {
-
-        document.getElementById('btn-accept-all').addEventListener('click', function() {
-            setConsent({
-                necessary: true,
-                analytics: true,
-                preferences: true,
-                marketing: true
-            });
-            hideBanner();
-        });
-        document.getElementById('btn-accept-some').addEventListener('click', function() {
-            setConsent({
-                necessary: true,
-                analytics: document.getElementById('consent-analytics').checked,
-                preferences: document.getElementById('consent-preferences').checked,
-                marketing: document.getElementById('consent-marketing').checked
-            });
-            hideBanner();
-        });
-        document.getElementById('btn-reject-all').addEventListener('click', function() {
-            setConsent({
-                necessary: false,
-                analytics: false,
-                preferences: false,
-                marketing: false
-            });
-            hideBanner();
-        });
-        document.getElementById('cookie-consent-banner').style.display = 'block';
-    }
-
+  
     function setConsent(consent) {
-        const consentMode = {
-            'functionality_storage': consent.necessary ? 'granted' : 'denied',
-            'security_storage': consent.necessary ? 'granted' : 'denied',
-            'ad_storage': consent.marketing ? 'granted' : 'denied',
-            'analytics_storage': consent.analytics ? 'granted' : 'denied',
-            'personalization_storage': consent.preferences ? 'granted' : 'denied',
-        };
+      const consentMode = {
+        'functionality_storage': consent.necessary ? 'granted' : 'denied',
+        'security_storage': consent.necessary ? 'granted' : 'denied',
+        'ad_storage': consent.marketing ? 'granted' : 'denied',
+        'analytics_storage': consent.analytics ? 'granted' : 'denied',
+        'personalization_storage': consent.preferences ? 'granted' : 'denied',
+      };
+      if (typeof gtag === 'function') {
         gtag('consent', 'update', consentMode);
-        localStorage.setItem('consentMode', JSON.stringify(consentMode));
+      } else {
+        console.warn('gtag() nem elérhető időben');
+      }
+      localStorage.setItem('consentMode', JSON.stringify(consentMode));
     }
-</script>
+  
+    if (localStorage.getItem('consentMode') === null) {
+      document.getElementById('btn-accept-all').addEventListener('click', function() {
+        setConsent({
+          necessary: true,
+          analytics: true,
+          preferences: true,
+          marketing: true
+        });
+        hideBanner();
+      });
+  
+      document.getElementById('btn-accept-some').addEventListener('click', function() {
+        setConsent({
+          necessary: true,
+          analytics: document.getElementById('consent-analytics').checked,
+          preferences: document.getElementById('consent-preferences').checked,
+          marketing: document.getElementById('consent-marketing').checked
+        });
+        hideBanner();
+      });
+  
+      document.getElementById('btn-reject-all').addEventListener('click', function() {
+        setConsent({
+          necessary: true,
+          analytics: false,
+          preferences: false,
+          marketing: false
+        });
+        hideBanner();
+      });
+    } else {
+      hideBanner();
+    }
+  </script>
+  

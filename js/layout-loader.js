@@ -12,5 +12,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   inject("header", "layout/header.html");
   inject("footer", "layout/footer.html");
-  inject("consent-banner-placeholder", "layout/consent.html");
+  inject("consent-banner-placeholder", "partials/consent.html");
 });

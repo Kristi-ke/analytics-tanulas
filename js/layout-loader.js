@@ -1,12 +1,16 @@
 // js/layout-loader.js
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("layout/header.html")
+  const inject = (id, file) => {
+    fetch(file)
       .then(response => response.text())
-      .then(data => document.getElementById("header").innerHTML = data);
-  
-    fetch("layout/footer.html")
-      .then(response => response.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
-  });
-  
+      .then(data => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = data;
+      });
+  };
+
+  inject("header", "layout/header.html");
+  inject("footer", "layout/footer.html");
+  inject("consent-banner-placeholder", "layout/consent.html");
+});

@@ -42,7 +42,7 @@
   <div id="consent-banner-placeholder"></div>
 
 <script>
-  fetch('consent.html')
+  fetch('partials/consent.html')
     .then(response => response.text())
     .then(html => document.getElementById('consent-banner-placeholder').innerHTML = html);
 </script>

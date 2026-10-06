@@ -1,72 +1,65 @@
-<div id="cookie-consent-banner" class="cookie-consent-banner" style="background:#f9f9f9; padding:20px; border-bottom:1px solid #ccc; text-align:center;">
-    <h3>Cookie beállítások</h3>
-    <p>Ez az oldal sütiket használ a legjobb élmény érdekében. Kérlek, válaszd ki, hogy mely sütiket engedélyezed.</p>
-    <div style="margin: 10px 0;">
-      <button id="btn-accept-all" class="cookie-consent-button btn-success">Összes elfogadása</button>
-      <button id="btn-accept-some" class="cookie-consent-button btn-outline">Kiválasztottak elfogadása</button>
-      <button id="btn-reject-all" class="cookie-consent-button btn-grayscale">Összes elutasítása</button>
-    </div>
-    <div class="cookie-consent-options" style="margin-top:10px;">
-      <label><input id="consent-necessary" type="checkbox" checked disabled> Szükséges</label><br>
-      <label><input id="consent-analytics" type="checkbox" checked> Analitika</label><br>
-      <label><input id="consent-preferences" type="checkbox" checked> Preferenciák</label><br>
-      <label><input id="consent-marketing" type="checkbox"> Marketing</label>
-    </div>
+<div id="cookie-consent-banner"
+     class="cookie-consent-banner"
+     style="background:#f9f9f9;
+            padding:20px;
+            border-bottom:1px solid #ccc;
+            text-align:center;">
+
+  <h3>Cookie beállítások</h3>
+
+  <p>
+    Ez az oldal sütiket használ a legjobb élmény érdekében.
+    Kérlek, válaszd ki, hogy mely sütiket engedélyezed.
+  </p>
+
+  <div style="margin:10px 0;">
+    <button id="btn-accept-all">
+      Összes elfogadása
+    </button>
+
+    <button id="btn-accept-some">
+      Kiválasztottak elfogadása
+    </button>
+
+    <button id="btn-reject-all">
+      Összes elutasítása
+    </button>
   </div>
-  
-  <script>
-    function hideBanner() {
-      document.getElementById('cookie-consent-banner').style.display = 'none';
-    }
-  
-    function setConsent(consent) {
-      const consentMode = {
-        'functionality_storage': consent.necessary ? 'granted' : 'denied',
-        'security_storage': consent.necessary ? 'granted' : 'denied',
-        'ad_storage': consent.marketing ? 'granted' : 'denied',
-        'analytics_storage': consent.analytics ? 'granted' : 'denied',
-        'personalization_storage': consent.preferences ? 'granted' : 'denied',
-      };
-      if (typeof gtag === 'function') {
-        gtag('consent', 'update', consentMode);
-      } else {
-        console.warn('gtag() nem elérhető időben');
-      }
-      localStorage.setItem('consentMode', JSON.stringify(consentMode));
-    }
-  
-    if (localStorage.getItem('consentMode') === null) {
-      document.getElementById('btn-accept-all').addEventListener('click', function() {
-        setConsent({
-          necessary: true,
-          analytics: true,
-          preferences: true,
-          marketing: true
-        });
-        hideBanner();
-      });
-  
-      document.getElementById('btn-accept-some').addEventListener('click', function() {
-        setConsent({
-          necessary: true,
-          analytics: document.getElementById('consent-analytics').checked,
-          preferences: document.getElementById('consent-preferences').checked,
-          marketing: document.getElementById('consent-marketing').checked
-        });
-        hideBanner();
-      });
-  
-      document.getElementById('btn-reject-all').addEventListener('click', function() {
-        setConsent({
-          necessary: true,
-          analytics: false,
-          preferences: false,
-          marketing: false
-        });
-        hideBanner();
-      });
-    } else {
-      hideBanner();
-    }
-  </script>
-  
+
+  <div style="margin-top:10px;">
+
+    <label>
+      <input
+        id="consent-necessary"
+        type="checkbox"
+        checked
+        disabled>
+      Szükséges
+    </label>
+    <br>
+
+    <label>
+      <input
+        id="consent-analytics"
+        type="checkbox">
+      Analitika
+    </label>
+    <br>
+
+    <label>
+      <input
+        id="consent-preferences"
+        type="checkbox">
+      Preferenciák
+    </label>
+    <br>
+
+    <label>
+      <input
+        id="consent-marketing"
+        type="checkbox">
+      Marketing
+    </label>
+
+  </div>
+</div>

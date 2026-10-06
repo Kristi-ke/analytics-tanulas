@@ -6,21 +6,61 @@
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="style.css">
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+window.dataLayer = window.dataLayer || [];
 
-    if (localStorage.getItem('consentMode') === null) {
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'personalization_storage': 'denied',
-        'functionality_storage': 'denied',
-        'security_storage': 'denied',
-      });
-    } else {
-      gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
-    }
-  </script>
+function gtag() {
+  dataLayer.push(arguments);
+}
+
+
+const savedConsent =
+  localStorage.getItem('consentMode');
+
+
+if (savedConsent === null) {
+
+  /*
+   * Első látogatás:
+   * minden opcionális consent denied.
+   */
+  gtag('consent', 'default', {
+
+    ad_storage: 'denied',
+
+    analytics_storage: 'denied',
+
+    ad_user_data: 'denied',
+
+    ad_personalization: 'denied',
+
+    personalization_storage: 'denied',
+
+    functionality_storage: 'granted',
+
+    security_storage: 'granted',
+
+    wait_for_update: 500
+
+  });
+
+} else {
+
+  /*
+   * Visszatérő látogató:
+   * korábban elmentett választás.
+   */
+  const consent =
+    JSON.parse(savedConsent);
+
+  gtag(
+    'consent',
+    'default',
+    consent
+  );
+
+}
+
+</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -38,10 +78,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
   <div id="consent-banner-placeholder"></div>
 
+<div id="consent-banner-placeholder"></div>
+
+<script src="js/consent.js"></script>
+
 <script>
-  fetch('partials/consent.html')
-    .then(response => response.text())
-    .then(html => document.getElementById('consent-banner-placeholder').innerHTML = html);
+fetch('partials/consent.html')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Consent banner betöltési hiba');
+    }
+
+    return response.text();
+  })
+  .then(html => {
+
+    document.getElementById(
+      'consent-banner-placeholder'
+    ).innerHTML = html;
+
+    /*
+     * Fontos:
+     * csak azután inicializáljuk,
+     * hogy a banner bekerült a DOM-ba.
+     */
+    initConsentBanner();
+
+  })
+  .catch(error => {
+    console.error(
+      'Consent banner hiba:',
+      error
+    );
+  });
 </script>
 
 <!-- Google Tag Manager (noscript) -->
